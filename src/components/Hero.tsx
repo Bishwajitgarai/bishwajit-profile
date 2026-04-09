@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, ShieldCheck, Zap, Phone, Mail, MapPin, GitBranch, Linkedin } from "lucide-react";
+import { Terminal, ShieldCheck, Zap, Phone, Mail, MapPin, GitBranch, Globe } from "lucide-react";
 
 export default function Hero({ data }: { data: any }) {
   const { identity } = data;
@@ -45,12 +45,18 @@ export default function Hero({ data }: { data: any }) {
               <span className="flex items-center gap-1.5"><MapPin className="w-3 h-3" /> {identity.location}</span>
            </div>
 
-           <div className="flex justify-center gap-4 mt-2">
-              <a href={`https://github.com/${identity.contact.github}`} className="p-2 glass-card rounded-lg hover:border-cyber-green/50 transition-colors">
+           <div className="flex flex-wrap justify-center gap-3 mt-4">
+              <a href={`https://github.com/${identity.contact.githubPrimary}`} title="Primary GitHub" className="p-2 glass-card rounded-lg border-cyber-green/40 hover:border-cyber-green transition-all group flex items-center gap-2">
                  <GitBranch className="w-4 h-4 text-cyber-green" />
+                 <span className="text-[8px] font-bold text-cyber-green uppercase hidden sm:inline">Primary</span>
               </a>
+              {identity.contact.githubOthers.map((gh: string) => (
+                <a key={gh} href={`https://github.com/${gh}`} title={`GitHub: ${gh}`} className="p-2 glass-card rounded-lg hover:border-cyber-green/50 transition-colors">
+                   <GitBranch className="w-4 h-4 text-cyber-green/60" />
+                </a>
+              ))}
               <a href={`https://linkedin.com/in/${identity.contact.linkedin}`} className="p-2 glass-card rounded-lg hover:border-cyber-violet/50 transition-colors">
-                 <Linkedin className="w-4 h-4 text-cyber-violet" />
+                 <Globe className="w-4 h-4 text-cyber-violet" />
               </a>
            </div>
         </div>
