@@ -75,7 +75,7 @@ export async function GET() {
       },
       {
         period: "Sep 2021 - Feb 2022",
-        role: "Junior Software Developer (Internship but Full-time)",
+        role: "Junior Software Developer",
         company: "Aiinhome Technology Pvt Ltd",
         location: "Kolkata",
         achievements: [

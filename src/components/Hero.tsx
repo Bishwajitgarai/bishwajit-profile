@@ -85,7 +85,7 @@ export default function Hero({ data }: { data: any }) {
            <div className="w-px h-8 bg-white/10 hidden sm:block" />
            <motion.div className="flex gap-2">
               {identity.contact.githubOthers.map((gh: string) => (
-                <a key={gh} href={`https://github.com/${gh}`} className="p-2.5 premium-card rounded-full opacity-40 hover:opacity-100 hover:border-cyber-green/40 transition-all">
+                <a key={gh} href={`https://github.com/${gh}`} target="_blank" rel="noopener noreferrer" className="p-2.5 premium-card rounded-full opacity-40 hover:opacity-100 hover:border-cyber-green/40 transition-all">
                    <GitBranch className="w-4 h-4" />
                 </a>
               ))}
@@ -111,6 +111,8 @@ function SocialLink({ href, icon: Icon, label, color }: any) {
   return (
     <a 
       href={href} 
+      target="_blank"
+      rel="noopener noreferrer"
       className={`px-5 py-2.5 premium-card rounded-xl flex items-center gap-3 group ${borderClass}`}
     >
       <Icon className={`w-4 h-4 ${colorClass} group-hover:scale-110 transition-transform`} />

@@ -7,6 +7,7 @@ import TechStack from "@/components/TechStack";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import Subsystems from "@/components/Subsystems";
+import DeepScan from "@/components/DeepScan";
 import { Zap, Box, Workflow, Terminal } from "lucide-react";
 
 export default function Home() {
@@ -53,19 +54,37 @@ export default function Home() {
           <nav className="fixed top-8 left-0 w-full z-[100] px-6 sm:px-12 flex justify-between items-center pointer-events-none">
             <div className="text-[10px] font-mono tracking-widest text-white/20 uppercase">B. Garai // 2026</div>
             <div className="pointer-events-auto flex gap-6 sm:gap-10">
-               <NavItem label="Arch" href="#" />
-               <NavItem label="Stack" href="#" />
-               <NavItem label="Cases" href="#" />
+               <NavItem label="Stack" href="#stack" />
+               <NavItem label="Arch" href="#arch" />
+               <NavItem label="Signals" href="#signals" />
+               <NavItem label="Cases" href="#cases" />
             </div>
           </nav>
 
-          <Hero data={data} />
+          <section id="hero">
+            <Hero data={data} />
+          </section>
           
           <div className="relative z-10 w-full">
-            <TechStack data={data} />
-            <Subsystems data={data} />
-            <ProjectShowcase data={data} />
-            <ExperienceTimeline data={data} />
+            <section id="stack">
+              <TechStack data={data} />
+            </section>
+            
+            <section id="arch">
+              <Subsystems data={data} />
+            </section>
+
+            <section id="signals">
+              <DeepScan />
+            </section>
+
+            <section id="cases">
+              <ProjectShowcase data={data} />
+            </section>
+
+            <section id="log">
+              <ExperienceTimeline data={data} />
+            </section>
           </div>
 
           <footer className="py-32 border-t border-white/[0.03] text-center space-y-8 bg-black/40">

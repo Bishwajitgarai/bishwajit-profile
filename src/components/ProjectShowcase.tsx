@@ -71,9 +71,14 @@ export default function ProjectShowcase({ data }: { data: any }) {
             </div>
 
             <div className="pt-8 mt-auto flex justify-between items-center border-t border-white/[0.05]">
-               <button className="flex items-center gap-2 text-xs font-bold text-cyber-green/60 hover:text-cyber-green transition-colors tracking-widest uppercase">
+               <a 
+                 href="#" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 className="flex items-center gap-2 text-xs font-bold text-cyber-green/60 hover:text-cyber-green transition-colors tracking-widest uppercase cursor-pointer"
+               >
                   Explore Build <ChevronRight className="w-4 h-4" />
-               </button>
+               </a>
                <div className="opacity-10">
                   <Sparkles className="w-4 h-4" />
                </div>
