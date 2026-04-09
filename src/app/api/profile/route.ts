@@ -21,7 +21,7 @@ export async function GET() {
     skillMatrix: [
       {
         category: "Languages & Backend",
-        skills: ["Python", "FastAPI", "Django", "Flask", "Kafka", "Redis", "RabbitMQ", "gRPC", "WebSockets"]
+        skills: ["Python", "FastAPI", "Django", "Flask", "Kafka", "Redis", "RabbitMQ", "WebSockets"]
       },
       {
         category: "GenAI & LLM",
@@ -29,11 +29,11 @@ export async function GET() {
       },
       {
         category: "Search & Data",
-        skills: ["OpenSearch", "Vespa", "Milvus", "Pinecone", "Vector DB", "Hybrid Search", "MySQL", "Redis", "PostgreSQL", "Elasticsearch"]
+        skills: ["OpenSearch", "Vespa", "Vector DB", "Hybrid Search", "MySQL", "Redis", "PostgreSQL", "Elasticsearch"]
       },
       {
         category: "Infra & DevOps",
-        skills: ["Docker", "Kubernetes", "Nginx", "AWS", "Azure", "Terraform", "CI/CD", "Async Workers"]
+        skills: ["Docker", "Nginx", "AWS", "CI/CD", "Async Workers"]
       },
       {
         category: "Others",

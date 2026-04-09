@@ -9,6 +9,7 @@ import ExperienceTimeline from "@/components/ExperienceTimeline";
 import Subsystems from "@/components/Subsystems";
 import Education from "@/components/Education";
 import DeepScan from "@/components/DeepScan";
+import SysConsole from "@/components/SysConsole";
 import Cursor from "@/components/Cursor";
 import { Zap, Box, Workflow } from "lucide-react";
 
@@ -54,6 +55,7 @@ export default function Home() {
           ref={mainRef}
         >
           <Cursor />
+          <SysConsole />
 
           {/* Refined Minimalist Nav */}
           <nav className="fixed top-8 left-0 w-full z-[100] px-6 sm:px-12 flex justify-between items-center pointer-events-none">
