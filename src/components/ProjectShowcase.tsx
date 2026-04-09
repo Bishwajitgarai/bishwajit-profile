@@ -59,7 +59,7 @@ function ProjectModule({ item, index }: { item: any; index: number }) {
       {/* Blueprint Visual Side */}
       <div className="lg:col-span-6 relative aspect-square lg:aspect-video rounded-[32px] overflow-hidden bg-white/[0.015] border border-white/5 group-hover:border-cyber-green/20 transition-all duration-700 shadow-2xl">
         {hasAsset ? (
-           <div className="absolute inset-0 grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100 opacity-60 group-hover:opacity-100">
+           <div className="absolute inset-0 transition-all duration-700 scale-105 group-hover:scale-100 opacity-90 group-hover:opacity-100">
              <Image 
                src={hasAsset} 
                alt={item.name} 
@@ -67,9 +67,8 @@ function ProjectModule({ item, index }: { item: any; index: number }) {
                className="object-cover"
                priority={index < 3}
              />
-             {/* Blueprint Overlay Grids */}
-             <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-80" />
-             <div className="absolute inset-0 border-[0.5px] border-white/10 opacity-20" />
+             {/* Blueprint Overlay Grids - Subtler */}
+             <div className="absolute inset-0 border-[0.5px] border-white/10 opacity-10" />
            </div>
         ) : (
           <div className="absolute inset-0 opacity-5">

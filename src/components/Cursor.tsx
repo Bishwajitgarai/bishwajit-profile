@@ -7,11 +7,8 @@ export default function Cursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
-  const dotConfig = { damping: 20, stiffness: 1200 };
-  const ringConfig = { damping: 30, stiffness: 600 };
+  const ringConfig = { damping: 30, stiffness: 1500 };
   
-  const dotX = useSpring(cursorX, dotConfig);
-  const dotY = useSpring(cursorY, dotConfig);
   const ringX = useSpring(cursorX, ringConfig);
   const ringY = useSpring(cursorY, ringConfig);
 
@@ -52,8 +49,8 @@ export default function Cursor() {
       {/* Core Dot */}
       <motion.div
         style={{
-          translateX: dotX,
-          translateY: dotY,
+          translateX: cursorX,
+          translateY: cursorY,
           left: -2,
           top: -2,
         }}
