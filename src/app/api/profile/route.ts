@@ -21,23 +21,23 @@ export async function GET() {
     skillMatrix: [
       {
         category: "Languages & Backend",
-        skills: ["Python", "FastAPI", "Django", "Flask", "REST", "GraphQL", "WebSockets"]
+        skills: ["Python", "FastAPI", "Django", "Flask", "Kafka", "Redis", "RabbitMQ", "gRPC", "WebSockets"]
       },
       {
         category: "GenAI & LLM",
-        skills: ["Gemini", "OpenAI", "RAG", "Prompt Engineering", "Autonomous Agents", "AI Chatbots", "LLM Ops"]
+        skills: ["Multi-Agent Orchestration", "RAG Architectures", "Function Calling", "Semantic Cache", "LLM Ops", "Fine-tuning", "Gemini / OpenAI"]
       },
       {
         category: "Search & Data",
-        skills: ["OpenSearch", "Vespa", "Vector DB", "Hybrid Search", "MySQL", "SQLite", "Redis", "Pandas", "NumPy"]
+        skills: ["OpenSearch", "Vespa", "Milvus", "Pinecone", "Vector DB", "Hybrid Search", "MySQL", "Redis", "PostgreSQL", "Elasticsearch"]
       },
       {
         category: "Infra & DevOps",
-        skills: ["Docker", "Nginx", "AWS", "Git", "CI/CD", "Async Workers"]
+        skills: ["Docker", "Kubernetes", "Nginx", "AWS", "Azure", "Terraform", "CI/CD", "Async Workers"]
       },
       {
         category: "Others",
-        skills: ["Web Scraping", "Automation", "Unit Testing", "React", "JavaScript"]
+        skills: ["Web Scraping", "Automation", "Unit Testing (Pytest)", "React", "Next.js", "TypeScript"]
       }
     ],
     topology: {
@@ -83,6 +83,20 @@ export async function GET() {
           "Enhanced software reliability by 40% and reduced detected bugs by 60%.",
           "Followed clean coding patterns and best practices to improve maintainability."
         ]
+      }
+    ],
+    education: [
+      {
+        degree: "B.Tech | Computer Science and Engineering",
+        institution: "Mallabhum Institute of Technology, Bankura, WB",
+        period: "June 2020 - July 2023",
+        score: "CGPA: 83.7"
+      },
+      {
+        degree: "Diploma of Higher Education | Computer Science",
+        institution: "Raja Ranjit Kishore Govt Polytechnic, Jhargram, WB",
+        period: "June 2017 - June 2020",
+        score: "CGPA: 77.6"
       }
     ],
     inventory: [

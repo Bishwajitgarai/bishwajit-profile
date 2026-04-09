@@ -7,6 +7,7 @@ import TechStack from "@/components/TechStack";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import Subsystems from "@/components/Subsystems";
+import Education from "@/components/Education";
 import DeepScan from "@/components/DeepScan";
 import Cursor from "@/components/Cursor";
 import { Zap, Box, Workflow } from "lucide-react";
@@ -40,7 +41,7 @@ export default function Home() {
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
             className="flex flex-col items-center gap-6"
           >
-            <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-cyber-green to-transparent" />
+            <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-cyber-green/40 to-transparent" />
             <p className="font-mono text-[9px] tracking-[0.6em] text-white/40 uppercase font-bold">Initializing_Neural_Core</p>
           </motion.div>
         </motion.div>
@@ -56,10 +57,11 @@ export default function Home() {
 
           {/* Refined Minimalist Nav */}
           <nav className="fixed top-8 left-0 w-full z-[100] px-6 sm:px-12 flex justify-between items-center pointer-events-none">
-            <div className="text-[10px] font-mono tracking-widest text-white/20 uppercase">B. Garai // 2026</div>
+            <div className="text-[10px] font-mono tracking-widest text-white/10 uppercase">B. Garai // 2026</div>
             <div className="pointer-events-auto flex gap-6 sm:gap-10">
                <NavItem label="Stack" href="#stack" />
                <NavItem label="Arch" href="#arch" />
+               <NavItem label="Study" href="#study" />
                <NavItem label="Signals" href="#signals" />
                <NavItem label="Cases" href="#cases" />
             </div>
@@ -78,6 +80,10 @@ export default function Home() {
               <Subsystems data={data} />
             </PerspectiveSection>
 
+            <PerspectiveSection id="study">
+              <Education data={data} />
+            </PerspectiveSection>
+
             <PerspectiveSection id="signals">
               <DeepScan />
             </PerspectiveSection>
@@ -92,7 +98,7 @@ export default function Home() {
           </div>
 
           <footer className="py-32 border-t border-white/[0.03] text-center space-y-8 bg-black/40">
-             <p className="text-[9px] font-mono opacity-20 tracking-[1em] uppercase">Tactile_Interface_v6.0 // Optimized_For_Visual_Impact</p>
+             <p className="text-[9px] font-mono opacity-10 tracking-[1em] uppercase">Tactile_Interface_v6.0 // Optimized_For_Visual_Impact</p>
              <div className="flex justify-center gap-12 opacity-10">
                 <Zap className="w-4 h-4" />
                 <Workflow className="w-4 h-4" />
@@ -112,11 +118,11 @@ function PerspectiveSection({ children, id }: { children: React.ReactNode; id: s
     offset: ["start end", "end start"]
   });
 
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [4, 0, -4]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.98, 1, 0.98]);
 
-  const springRotateX = useSpring(rotateX, { stiffness: 100, damping: 30 });
+  const springRotateX = useSpring(rotateX, { stiffness: 80, damping: 40 });
 
   return (
     <motion.section
@@ -126,9 +132,8 @@ function PerspectiveSection({ children, id }: { children: React.ReactNode; id: s
         rotateX: springRotateX,
         opacity,
         scale,
-        perspective: "1000px"
       }}
-      className="relative will-change-transform"
+      className="relative will-change-transform perspective-1000"
     >
       {children}
     </motion.section>
@@ -139,7 +144,7 @@ function NavItem({ label, href }: any) {
   return (
     <a 
       href={href} 
-      className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-white/30 hover:text-white transition-all transform hover:translate-y-[-1px] cursor-pointer"
+      className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-white/20 hover:text-white transition-all transform hover:translate-y-[-1px] cursor-pointer"
     >
       {label}
     </a>
