@@ -23,7 +23,7 @@ export default function Home() {
       .then(res => res.json())
       .then(d => {
         setData(d);
-        setTimeout(() => setLoading(false), 1200);
+        setTimeout(() => setLoading(false), 10);
       })
       .catch(e => console.error(e));
   }, []);

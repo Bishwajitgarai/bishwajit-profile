@@ -7,9 +7,13 @@ export default function Cursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  const dotConfig = { damping: 20, stiffness: 1200 };
+  const ringConfig = { damping: 30, stiffness: 600 };
+  
+  const dotX = useSpring(cursorX, dotConfig);
+  const dotY = useSpring(cursorY, dotConfig);
+  const ringX = useSpring(cursorX, ringConfig);
+  const ringY = useSpring(cursorY, ringConfig);
 
   const [isPointer, setIsPointer] = useState(false);
 
@@ -35,8 +39,8 @@ export default function Cursor() {
       {/* Ghost Ring */}
       <motion.div
         style={{
-          translateX: cursorXSpring,
-          translateY: cursorYSpring,
+          translateX: ringX,
+          translateY: ringY,
           left: -16,
           top: -16,
         }}
@@ -48,8 +52,8 @@ export default function Cursor() {
       {/* Core Dot */}
       <motion.div
         style={{
-          translateX: cursorX,
-          translateY: cursorY,
+          translateX: dotX,
+          translateY: dotY,
           left: -2,
           top: -2,
         }}
