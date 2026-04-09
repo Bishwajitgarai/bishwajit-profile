@@ -4,100 +4,72 @@
   --background: #020202;
   --foreground: #00FF9D;
   --cyber-violet: #BC13FE;
-  --cyber-pink: #FF0055;
-  --glass: rgba(10, 10, 10, 0.4);
-  --glass-border: rgba(0, 255, 157, 0.1);
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 @theme {
   --color-cyber-green: #00FF9D;
   --color-cyber-violet: #BC13FE;
-  --color-cyber-pink: #FF0055;
-  --animate-scanline: scanline 8s linear infinite;
-  --animate-blink: blink 1s step-end infinite;
-  --animate-mesh: mesh 20s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
 
-  @keyframes scanline {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(100%); }
-  }
-
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-
-  @keyframes mesh {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(5%, 5%) scale(1.1); }
-    66% { transform: translate(-5%, 2%) scale(1.05); }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), "Inter", sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Utilities */
-.glass-card {
+/* Sophisticated Mono Font for technical details */
+.font-mono {
+  font-family: var(--font-geist-mono), monospace;
+}
+
+/* Premium Minimalist Card */
+.premium-card {
   background: var(--glass);
-  backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.37);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.glass-card:hover {
-  background: rgba(10, 10, 10, 0.6);
-  border-color: rgba(0, 255, 157, 0.3);
-  box-shadow: 0 8px 64px 0 rgba(0, 255, 157, 0.1);
+.premium-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
 }
 
+/* Background Mesh: Subtle & Slow */
 .mesh-bg {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150vw;
-  height: 150vh;
+  inset: 0;
   z-index: -1;
   background: 
-    radial-gradient(circle at 20% 20%, rgba(0, 255, 157, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(0, 255, 157, 0.03) 0%, transparent 50%);
-  filter: blur(80px);
-  animation: mesh 20s ease-in-out infinite;
-}
-
-.cyber-glow-text {
-  text-shadow: 0 0 12px rgba(0, 255, 157, 0.4);
-}
-
-.brutalist-border {
-  border: 2px solid var(--foreground);
-  box-shadow: 4px 4px 0px var(--foreground);
-}
-
-/* Scroll Section */
-.section-snap {
-  scroll-snap-type: y mandatory;
-}
-
-.section-item {
-  scroll-snap-align: start;
-  min-height: 100vh;
+    radial-gradient(circle at 10% 10%, rgba(0, 255, 157, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(188, 19, 254, 0.03) 0%, transparent 50%);
+  filter: blur(100px);
 }
 
 /* Selection */
 ::selection {
   background: var(--foreground);
-  color: var(--background);
+  color: black;
 }
 
-/* Custom Cursor (Optional visual class) */
-.magnetic-btn {
-  transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -7,71 +7,61 @@ export default function Subsystems({ data }: { data: any }) {
   const { topology } = data;
 
   return (
-    <section className="min-h-screen py-16 sm:py-32 px-4 sm:px-8 max-w-7xl mx-auto flex flex-col justify-center">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-20 items-center">
+    <section className="min-h-screen py-24 px-6 sm:px-12 max-w-7xl mx-auto flex flex-col justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         
-        <div className="space-y-8 sm:space-y-12 text-center lg:text-left">
-           <div className="space-y-4 sm:space-y-6">
-              <h2 className="text-4xl sm:text-8xl font-bold text-white tracking-tighter uppercase whitespace-pre-line leading-[0.9]">
-                System <span className="text-cyber-green">Topology</span>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
+          className="space-y-12"
+        >
+           <div className="space-y-6">
+              <h2 className="text-4xl sm:text-7xl font-bold text-white tracking-tight uppercase leading-[0.9]">
+                Logical <span className="text-cyber-green/40 italic font-light lowercase">Architecture</span>
               </h2>
-              <div className="w-20 h-1 bg-cyber-green rounded-full mx-auto lg:mx-0" />
-              <p className="text-white/50 max-w-lg leading-relaxed font-sans text-sm sm:text-xl mx-auto lg:mx-0">
-                A birds-eye view of my distributed backend architecture and AI pipeline orchestration. 
-                Built for deep logic and extreme processing scale.
+              <p className="text-white/40 max-w-sm leading-relaxed font-sans font-light text-base">
+                An abstract visualization of the distributed backend ecosystems and AI pipelines I orchestrate. 
               </p>
            </div>
 
-           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-              <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start text-center sm:text-left">
-                 <div className="p-4 bg-cyber-green/5 rounded-2xl border border-cyber-green/10">
-                    <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-cyber-green shadow-[0_0_15px_rgba(0,255,157,0.3)]" />
+           <div className="grid grid-cols-1 gap-8">
+              <div className="flex gap-6 items-center group">
+                 <div className="p-4 bg-white/[0.02] border border-white/[0.05] rounded-2xl group-hover:border-cyber-green transition-colors">
+                    <Zap className="w-6 h-6 text-cyber-green opacity-40 group-hover:opacity-100" />
                  </div>
                  <div className="space-y-1">
-                    <h3 className="text-sm sm:text-lg font-bold text-white uppercase tracking-widest">Perf_Layer</h3>
-                    <p className="text-white/30 text-[10px] sm:text-xs">Latency &lt; 20ms | 99.9% Uptime</p>
-                 </div>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start text-center sm:text-left">
-                 <div className="p-4 bg-cyber-violet/5 rounded-2xl border border-cyber-violet/10">
-                    <Database className="w-6 h-6 sm:w-8 sm:h-8 text-cyber-violet shadow-[0_0_15px_rgba(188,19,254,0.3)]" />
-                 </div>
-                 <div className="space-y-1">
-                    <h3 className="text-sm sm:text-lg font-bold text-white uppercase tracking-widest">Data_Grid</h3>
-                    <p className="text-white/30 text-[10px] sm:text-xs">Hybrid Vector & Relational Grid</p>
+                    <h3 className="text-sm font-bold text-white uppercase tracking-widest">Performance_Core</h3>
+                    <p className="text-white/20 text-[10px] font-mono tracking-widest whitespace-nowrap">LATENCY_OPTIMIZED / ASYNC_FIRST</p>
                  </div>
               </div>
            </div>
-        </div>
+        </motion.div>
 
-        {/* Global Architecture Path Visualization */}
-        <div className="glass-card p-4 sm:p-12 rounded-[40px] sm:rounded-[60px] border-white/5 relative overflow-hidden min-h-[400px] sm:min-h-[600px] flex items-center justify-center bg-black/40">
-           {/* Glow background */}
-           <div className="absolute inset-0 bg-cyber-green/5 rounded-full blur-[100px] sm:blur-[150px] animate-pulse" />
+        {/* Global Architecture Visualization: More Abstract & Clean */}
+        <div className="relative aspect-square max-w-lg mx-auto w-full flex items-center justify-center">
+           <div className="absolute inset-0 bg-cyber-green/5 blur-[120px] rounded-full" />
            
-           <div className="grid grid-cols-2 gap-6 sm:gap-12 relative z-10 w-full max-w-sm">
+           <div className="grid grid-cols-2 gap-8 relative z-10 w-full">
               {topology.nodes.map((node: any, i: number) => (
                 <motion.div
                   key={node.id}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="p-5 sm:p-8 glass-card rounded-[24px] sm:rounded-[32px] border-white/10 flex flex-col items-center gap-3 sm:gap-5 group hover:border-cyber-green transition-all"
+                  className="p-8 premium-card rounded-[32px] flex flex-col items-center gap-4 text-center group"
                 >
-                   <div className={`w-10 h-10 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-[24px] border flex items-center justify-center transition-all group-hover:bg-cyber-green/10 ${
-                     node.status === 'Active' ? 'border-cyber-green/30' : 'border-cyber-violet/30'
-                   }`}>
-                      {i === 0 && <Radio className="w-6 h-6 sm:w-8 sm:h-8 text-cyber-green animate-pulse" />}
-                      {i === 1 && <Share2 className="w-6 h-6 sm:w-8 sm:h-8 text-cyber-green" />}
-                      {i === 2 && <Database className="w-6 h-6 sm:w-8 sm:h-8 text-cyber-violet" />}
-                      {i === 3 && <Box className="w-6 h-6 sm:w-8 sm:h-8 text-cyber-violet" />}
-                      {i > 3 && <Activity className="w-6 h-6 sm:w-8 sm:h-8 text-white/20" />}
+                   <div className="p-3 bg-white/[0.02] border border-white/[0.05] rounded-xl group-hover:border-cyber-green/40 transition-colors">
+                      {i === 0 && <Radio className="w-5 h-5 text-cyber-green/60" />}
+                      {i === 1 && <Share2 className="w-5 h-5 text-white/40" />}
+                      {i === 2 && <Database className="w-5 h-5 text-cyber-violet/60" />}
+                      {i === 3 && <Box className="w-5 h-5 text-white/40" />}
+                      {i > 3 && <Activity className="w-5 h-5 text-white/20" />}
                    </div>
-                   <div className="text-center">
-                      <p className="text-[8px] sm:text-[10px] font-bold text-white group-hover:text-cyber-green uppercase tracking-[0.2em]">{node.label}</p>
-                      <p className={`text-[6px] sm:text-[8px] font-bold mt-1 tracking-widest ${
-                        node.status === 'Active' ? 'text-cyber-green/40' : 'text-cyber-violet/40'
-                      }`}>{node.status.toUpperCase()}</p>
+                   <div>
+                      <p className="text-[9px] font-mono font-bold text-white/60 group-hover:text-cyber-green transition-colors uppercase tracking-[0.2em]">{node.label}</p>
+                      <p className="text-[7px] font-mono text-white/20 mt-1 uppercase tracking-widest">{node.status}</p>
                    </div>
                 </motion.div>
               ))}
