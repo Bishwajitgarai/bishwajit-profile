@@ -1,25 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import Hero from "@/components/Hero";
 import TechStack from "@/components/TechStack";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import Subsystems from "@/components/Subsystems";
 import DeepScan from "@/components/DeepScan";
-import { Zap, Box, Workflow, Terminal } from "lucide-react";
+import Cursor from "@/components/Cursor";
+import { Zap, Box, Workflow } from "lucide-react";
 
 export default function Home() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const mainRef = useRef(null);
 
   useEffect(() => {
     fetch("/api/profile")
       .then(res => res.json())
       .then(d => {
         setData(d);
-        // Artificial delay for premium loading feel
         setTimeout(() => setLoading(false), 1200);
       })
       .catch(e => console.error(e));
@@ -40,7 +41,7 @@ export default function Home() {
             className="flex flex-col items-center gap-6"
           >
             <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-cyber-green to-transparent" />
-            <p className="font-mono text-[9px] tracking-[0.6em] text-white/40 uppercase font-bold">Initializing_Core</p>
+            <p className="font-mono text-[9px] tracking-[0.6em] text-white/40 uppercase font-bold">Initializing_Neural_Core</p>
           </motion.div>
         </motion.div>
       ) : (
@@ -48,8 +49,11 @@ export default function Home() {
           key="content"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-[#020202] min-h-screen selection:bg-cyber-green selection:text-black overflow-x-hidden no-scrollbar"
+          className="bg-[#020202] min-h-screen selection:bg-cyber-green selection:text-black overflow-x-hidden no-scrollbar perspective-container"
+          ref={mainRef}
         >
+          <Cursor />
+
           {/* Refined Minimalist Nav */}
           <nav className="fixed top-8 left-0 w-full z-[100] px-6 sm:px-12 flex justify-between items-center pointer-events-none">
             <div className="text-[10px] font-mono tracking-widest text-white/20 uppercase">B. Garai // 2026</div>
@@ -61,34 +65,34 @@ export default function Home() {
             </div>
           </nav>
 
-          <section id="hero">
+          <PerspectiveSection id="hero">
             <Hero data={data} />
-          </section>
+          </PerspectiveSection>
           
           <div className="relative z-10 w-full">
-            <section id="stack">
+            <PerspectiveSection id="stack">
               <TechStack data={data} />
-            </section>
+            </PerspectiveSection>
             
-            <section id="arch">
+            <PerspectiveSection id="arch">
               <Subsystems data={data} />
-            </section>
+            </PerspectiveSection>
 
-            <section id="signals">
+            <PerspectiveSection id="signals">
               <DeepScan />
-            </section>
+            </PerspectiveSection>
 
-            <section id="cases">
+            <PerspectiveSection id="cases">
               <ProjectShowcase data={data} />
-            </section>
+            </PerspectiveSection>
 
-            <section id="log">
+            <PerspectiveSection id="log">
               <ExperienceTimeline data={data} />
-            </section>
+            </PerspectiveSection>
           </div>
 
           <footer className="py-32 border-t border-white/[0.03] text-center space-y-8 bg-black/40">
-             <p className="text-[9px] font-mono opacity-20 tracking-[1em] uppercase">Built for Intelligence. Optimized for Logic.</p>
+             <p className="text-[9px] font-mono opacity-20 tracking-[1em] uppercase">Tactile_Interface_v6.0 // Optimized_For_Visual_Impact</p>
              <div className="flex justify-center gap-12 opacity-10">
                 <Zap className="w-4 h-4" />
                 <Workflow className="w-4 h-4" />
@@ -98,6 +102,36 @@ export default function Home() {
         </motion.main>
       )}
     </AnimatePresence>
+  );
+}
+
+function PerspectiveSection({ children, id }: { children: React.ReactNode; id: string }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+
+  const springRotateX = useSpring(rotateX, { stiffness: 100, damping: 30 });
+
+  return (
+    <motion.section
+      id={id}
+      ref={ref}
+      style={{
+        rotateX: springRotateX,
+        opacity,
+        scale,
+        perspective: "1000px"
+      }}
+      className="relative will-change-transform"
+    >
+      {children}
+    </motion.section>
   );
 }
 

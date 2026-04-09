@@ -1,91 +1,117 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Box, Sparkles, ChevronRight, Terminal } from "lucide-react";
+import { ChevronRight, Terminal, Cpu, Database, Binary, Zap, ExternalLink } from "lucide-react";
 
 export default function ProjectShowcase({ data }: { data: any }) {
   const { inventory } = data;
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-
-  const itemAnim = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }
-  };
-
   return (
-    <section className="min-h-screen py-24 px-6 sm:px-12 max-w-7xl mx-auto flex flex-col justify-center">
+    <section className="min-h-screen py-32 px-6 sm:px-12 max-w-7xl mx-auto space-y-32">
       <motion.div 
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="space-y-6 mb-20 text-center sm:text-left"
+        className="space-y-4"
       >
-         <h2 className="text-4xl sm:text-6xl font-bold text-white tracking-tight">
-           Crafted <span className="text-cyber-violet/60 italic font-light">Inventory</span>
+         <h2 className="text-4xl sm:text-7xl font-bold text-white tracking-tighter uppercase leading-none">
+           Technological <br /><span className="text-cyber-green/40 italic font-light lowercase">Manifest</span>
          </h2>
-         <p className="text-white/30 max-w-lg text-sm font-mono uppercase tracking-[0.2em]">
-           Selected works and technological artifacts.
-         </p>
+         <div className="flex items-center gap-4 text-white/20 font-mono text-[10px] uppercase tracking-[0.4em]">
+           <div className="h-px w-12 bg-white/20" />
+           <span>System_Inventory_v4.0</span>
+         </div>
       </motion.div>
 
-      <motion.div 
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-8"
-      >
-        {inventory.map((item: any) => (
-          <motion.div
-            key={item.name}
-            variants={itemAnim}
-            className="premium-card p-10 rounded-[32px] flex flex-col gap-10 group h-full cursor-default"
-          >
-            <div className="flex justify-between items-start">
-               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.05]">
-                  <Terminal className="w-8 h-8 text-white/40 group-hover:text-cyber-green transition-colors" />
-               </div>
-               <span className="text-[10px] font-mono text-white/20 uppercase tracking-[0.4em] border-b border-white/10 pb-1">{item.rarity}</span>
-            </div>
-
-            <div className="space-y-4 flex-1">
-               <h3 className="text-3xl font-bold text-white tracking-tight">{item.name}</h3>
-               <p className="text-white/50 text-base leading-relaxed font-sans font-light">
-                 {item.description}
-               </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-               {item.stack.map((s: string) => (
-                 <span key={s} className="text-[10px] sm:text-[11px] font-mono text-white/40 font-medium px-1 underline decoration-white/10 underline-offset-4">
-                   {s}
-                 </span>
-               ))}
-            </div>
-
-            <div className="pt-8 mt-auto flex justify-between items-center border-t border-white/[0.05]">
-               <a 
-                 href="#" 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 className="flex items-center gap-2 text-xs font-bold text-cyber-green/60 hover:text-cyber-green transition-colors tracking-widest uppercase cursor-pointer"
-               >
-                  Explore Build <ChevronRight className="w-4 h-4" />
-               </a>
-               <div className="opacity-10">
-                  <Sparkles className="w-4 h-4" />
-               </div>
-            </div>
-          </motion.div>
+      <div className="space-y-64">
+        {inventory.map((item: any, i: number) => (
+          <ProjectModule key={item.name} item={item} index={i} />
         ))}
-      </motion.div>
+      </div>
     </section>
+  );
+}
+
+function ProjectModule({ item, index }: { item: any; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="relative grid grid-cols-1 lg:grid-cols-12 gap-12 group"
+    >
+      {/* Decorative Index Header */}
+      <div className="lg:col-span-12 flex items-center justify-between border-b border-white/5 pb-4 opacity-40">
+        <span className="font-mono text-[10px] tracking-widest uppercase text-white/40">Module_ID: 00{index + 1}</span>
+        <span className="font-mono text-[10px] tracking-widest uppercase text-cyber-green/60">Class: {item.rarity}</span>
+      </div>
+
+      {/* Blueprint Visual Side */}
+      <div className="lg:col-span-6 relative aspect-square lg:aspect-video rounded-[40px] overflow-hidden bg-white/[0.02] border border-white/5 group-hover:border-cyber-green/20 transition-all duration-700">
+        <div className="absolute inset-0 opacity-10">
+           <div className="grid grid-cols-8 h-full w-full">
+              {Array.from({ length: 8 }).map((_, j) => (
+                <div key={j} className="border-r border-white/10 h-full" />
+              ))}
+           </div>
+        </div>
+        
+        {/* Animated Scanning Line */}
+        <motion.div 
+          animate={{ x: ["-100%", "200%"] }}
+          transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-cyber-green/10 to-transparent w-full pointer-events-none"
+        />
+
+        <div className="absolute inset-0 flex items-center justify-center">
+           <div className="relative">
+              <div className="absolute inset-0 bg-cyber-green/20 blur-[100px] animate-pulse" />
+              <div className="relative z-10 p-12 bg-[#020202]/40 backdrop-blur-xl border border-white/5 rounded-full">
+                <Terminal className="w-16 h-16 text-cyber-green/40 group-hover:text-cyber-green transition-all" />
+              </div>
+           </div>
+        </div>
+
+        <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end opacity-20 font-mono text-[8px] uppercase tracking-widest">
+           <div className="space-y-1">
+              <p>Buffer_Size: 512MB</p>
+              <p>Protocol: SSL/V3</p>
+           </div>
+           <p>©2026_ARCH_UNIT</p>
+        </div>
+      </div>
+
+      {/* Data Side */}
+      <div className="lg:col-span-6 flex flex-col justify-center space-y-10">
+        <div className="space-y-6">
+          <div className="flex items-center gap-3">
+             <span className="px-3 py-1 bg-white/[0.03] text-white/40 text-[9px] font-mono tracking-widest uppercase rounded-md">{item.type}</span>
+             <Zap className="w-4 h-4 text-cyber-green opacity-20" />
+          </div>
+          <h3 className="text-4xl sm:text-6xl font-bold text-white tracking-tighter leading-none group-hover:text-cyber-green transition-colors">
+            {item.name}
+          </h3>
+          <p className="text-white/50 text-lg leading-relaxed font-sans font-light max-w-xl">
+            {item.description}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+           {item.stack.map((s: string) => (
+             <span key={s} className="px-4 py-1.5 premium-card rounded-lg text-[10px] font-mono font-bold text-white/40 uppercase tracking-widest hover:text-cyber-green transition-colors">
+               {s}
+             </span>
+           ))}
+        </div>
+
+        <div className="pt-8 flex items-center gap-12">
+           <a href="#" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[10px] font-bold text-white uppercase tracking-[0.4em] group/btn">
+              <span className="border-b border-transparent group-hover/btn:border-cyber-green transition-all">Interface_Connect</span>
+              <ExternalLink className="w-3 h-3 text-cyber-green" />
+           </a>
+           <div className="h-px flex-1 bg-white/5" />
+        </div>
+      </div>
+    </motion.div>
   );
 }

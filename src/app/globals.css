@@ -13,11 +13,11 @@
 @theme {
   --color-cyber-green: #00FF9D;
   --color-cyber-violet: #BC13FE;
-  --animate-float: float 6s ease-in-out infinite;
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  --animate-scanline: scanline 8s linear infinite;
+  
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
   }
 }
 
@@ -29,7 +29,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Sophisticated Mono Font for technical details */
 .font-mono {
   font-family: var(--font-geist-mono), monospace;
 }
@@ -40,12 +39,6 @@ body {
   backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.premium-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-4px);
 }
 
 /* Background Mesh: Subtle & Slow */
@@ -59,10 +52,26 @@ body {
   filter: blur(100px);
 }
 
-/* Selection */
-::selection {
-  background: var(--foreground);
-  color: black;
+/* Scanline Effect */
+.scanline {
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 157, 0.03), transparent);
+  position: absolute;
+}
+
+/* Glitch Effect on Hover */
+.cyber-glitch:hover {
+  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: none; }
+  20% { transform: translate(-2px, 2px); text-shadow: 2px 0 var(--cyber-violet), -2px 0 var(--foreground); }
+  40% { transform: translate(-2px, -2px); text-shadow: 2px 0 var(--foreground), -2px 0 var(--cyber-violet); }
+  60% { transform: translate(2px, 2px); text-shadow: -2px 0 var(--cyber-violet), 2px 0 var(--foreground); }
+  80% { transform: translate(2px, -2px); text-shadow: -2px 0 var(--foreground), 2px 0 var(--cyber-violet); }
+  100% { transform: translate(0); text-shadow: none; }
 }
 
 /* Hide scrollbar but keep functionality */
@@ -72,4 +81,9 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Section Perspective */
+.perspective-container {
+  perspective: 2000px;
 }
