@@ -3,346 +3,280 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Terminal, 
-  User, 
+  Database, 
   Cpu, 
-  Briefcase, 
+  GitBranch, 
+  Server, 
   Activity, 
-  Mail, 
-  MapPin, 
-  ExternalLink,
+  Code2, 
   ChevronRight,
-  ShieldCheck,
+  Monitor,
+  Workflow,
+  Sparkles,
+  Search,
   Zap,
-  Globe
+  Box,
+  Brain
 } from "lucide-react";
 
 export default function Home() {
-  const [profile, setProfile] = useState<any>(null);
-  const [health, setHealth] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState("topology");
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("overview");
-  const [bootSequence, setBootSequence] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [profileRes, healthRes] = await Promise.all([
-          fetch("/api/profile"),
-          fetch("/api/health")
-        ]);
-        const profileData = await profileRes.json();
-        const healthData = await healthRes.json();
-        setProfile(profileData);
-        setHealth(healthData);
-      } catch (err) {
-        console.error("Data fetch error:", err);
-      } finally {
-        setTimeout(() => setBootSequence(false), 2000); // 2s boot sequence
+    fetch("/api/profile")
+      .then(res => res.json())
+      .then(d => {
+        setData(d);
         setLoading(false);
-      }
-    };
-
-    fetchData();
+      })
+      .catch(e => console.error(e));
   }, []);
 
-  const tabs = [
-    { id: "overview", label: "Overview", icon: User },
-    { id: "skills", label: "Skills", icon: Cpu },
-    { id: "projects", label: "Projects", icon: Briefcase },
-    { id: "status", label: "System Status", icon: Activity },
-  ];
-
-  if (bootSequence) {
+  if (loading || !data) {
     return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-4">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center space-y-4"
-        >
-          <div className="w-16 h-16 border-2 border-cyber-green rounded-full border-t-transparent animate-spin mx-auto mb-8" />
-          <motion.p 
-            animate={{ opacity: [1, 0.5, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-xl font-mono text-cyber-green drop-shadow-[0_0_10px_rgba(0,255,157,0.5)]"
-          >
-            INITIALIZING SECURE PROTOCOL...
-          </motion.p>
-          <div className="text-xs font-mono opacity-50 text-cyber-green space-y-1">
-            <p>[INFO] AUTHENTICATING BISHWAJIT_GARAI.SESSION</p>
-            <p>[INFO] LOADING AI_CORE_MODULES...</p>
-            <p>[INFO] DEPLOYING RAG_PIPELINE...</p>
-          </div>
-        </motion.div>
+      <div className="min-h-screen bg-[#050505] flex items-center justify-center p-8">
+        <div className="space-y-4 text-center">
+          <div className="w-16 h-16 border-2 border-cyber-green rounded-full border-t-transparent animate-spin mx-auto" />
+          <p className="font-mono text-cyber-green animate-pulse">Initializing Backend Orchestrator...</p>
+        </div>
       </div>
     );
   }
 
-  return (
-    <main className="min-h-screen bg-[#050505] text-[#00FF9D] font-mono selection:bg-[#00FF9D] selection:text-black p-4 md:p-8 lg:p-12 transition-all duration-500">
-      
-      {/* Background Ambience */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyber-green/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyber-violet/5 rounded-full blur-[120px]" />
-      </div>
+  const identity = data.identity;
 
-      <div className="max-w-6xl mx-auto relative z-10 h-full">
+  return (
+    <main className="min-h-screen bg-[#020202] text-[#00FF9D] font-mono p-4 sm:p-8 lg:p-12 selection:bg-cyber-green selection:text-black">
+      {/* Background Grid Accent */}
+      <div className="fixed inset-0 pointer-events-none opacity-5 bg-[radial-gradient(#00FF9D_1px,transparent_1px)] [background-size:24px_24px]" />
+      
+      <div className="max-w-7xl mx-auto relative z-10 flex flex-col gap-12">
         
-        {/* Header - System Bar */}
-        <header className="flex flex-col md:flex-row justify-between items-center mb-12 space-y-4 md:space-y-0 border-b border-cyber-green/20 pb-8">
-          <div className="flex items-center gap-4">
-            <motion.div 
-              whileHover={{ rotate: 180 }}
-              className="p-3 glass-panel rounded-xl border-cyber-green/40 cyber-border-glow"
-            >
-              <Terminal className="w-8 h-8 text-cyber-green" />
-            </motion.div>
-            <div>
-              <h1 className="text-3xl font-bold tracking-tighter cyber-glow">
-                BISHWAJIT GARAI <span className="text-xs opacity-50 font-normal">v2.0.26</span>
-              </h1>
-              <p className="text-sm opacity-70 flex items-center gap-2">
-                <span className="w-2 h-2 bg-cyber-green rounded-full animate-pulse" />
-                SYSTEM_ACCESS: GRANTED | {profile?.location || "Kolkata, IN"}
-              </p>
+        {/* Header: Core Identity */}
+        <header className="flex flex-col lg:flex-row justify-between items-start gap-8 border-b border-cyber-green/10 pb-12">
+          <div className="flex-1 space-y-4">
+            <div className="flex items-center gap-3 mb-2">
+               <span className="px-3 py-1 bg-cyber-green/10 text-cyber-green text-[10px] font-bold tracking-[0.2em] rounded border border-cyber-green/20">SYSTEM_ID: {identity.name.split(' ')[0].toUpperCase()}</span>
+               <span className="w-2 h-2 bg-cyber-green rounded-full animate-pulse" />
+            </div>
+            <h1 className="text-5xl sm:text-7xl font-bold tracking-tighter text-white">
+              {identity.name}
+            </h1>
+            <div className="flex flex-wrap gap-4 text-sm sm:text-base">
+              <span className="flex items-center gap-2 text-cyber-green font-bold">
+                <Code2 className="w-4 h-4" /> {identity.title}
+              </span>
+              <span className="text-white/40">|</span>
+              <span className="text-white/60">{identity.location}</span>
+              <span className="text-white/40">|</span>
+              <span className="text-cyber-violet font-bold">{identity.level}</span>
             </div>
           </div>
           
-          <div className="flex gap-4">
-            <motion.a 
-              whileHover={{ scale: 1.05, y: -2 }}
-              href={`mailto:${profile?.email}`}
-              className="px-6 py-2 glass-panel rounded-lg flex items-center gap-2 hover:bg-cyber-green hover:text-black transition-all group"
-            >
-              <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span>SSH CONNECT</span>
-            </motion.a>
+          <div className="flex flex-col gap-2 text-right">
+             <p className="text-[10px] opacity-40 uppercase tracking-widest mb-1">Status Protocol</p>
+             <div className="glass-panel p-4 rounded-xl border-cyber-violet/20">
+                <p className="text-xs text-cyber-violet font-bold">ALIGNMENT: {identity.alignment}</p>
+                <div className="flex gap-4 mt-4">
+                   <a href={`mailto:${identity.contact.email}`} className="text-white hover:text-cyber-green transition-colors"><Monitor className="w-4 h-4" /></a>
+                   <a href={`https://github.com/${identity.contact.github}`} className="text-white hover:text-cyber-green transition-colors"><GitBranch className="w-4 h-4" /></a>
+                   <a href="#" className="text-white hover:text-cyber-green transition-colors"><Zap className="w-4 h-4" /></a>
+                </div>
+             </div>
           </div>
         </header>
 
-        {/* Main Interface Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Dynamic Bento Interface */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Sidebar / Navigation */}
-          <nav className="flex flex-col gap-3">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 px-6 py-4 rounded-xl transition-all border text-left group ${
-                    activeTab === tab.id 
-                    ? "bg-cyber-green text-black border-transparent font-bold cyber-border-glow" 
-                    : "glass-panel border-cyber-green/10 hover:border-cyber-green/40"
-                  }`}
-                >
-                  <Icon className={`w-5 h-5 ${activeTab === tab.id ? "" : "opacity-50 group-hover:opacity-100"}`} />
-                  <span className="flex-1 capitalize tracking-widest">{tab.label}</span>
-                  {activeTab === tab.id && <ChevronRight className="w-4 h-4" />}
-                </button>
-              );
-            })}
-            
-            {/* Quick Status Box */}
-            <div className="mt-8 p-6 glass-panel rounded-2xl border-cyber-violet/20 cyber-glow">
-              <p className="text-[10px] opacity-40 uppercase mb-4 tracking-[0.2em]">Live Subsystems</p>
-              <div className="space-y-3 font-mono text-xs">
-                <div className="flex justify-between items-center">
-                  <span className="opacity-60 flex items-center gap-2"><Zap className="w-3 h-3" /> Core_Engine</span>
-                  <span className="text-cyber-green">ONLINE</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="opacity-60 flex items-center gap-2"><Globe className="w-3 h-3" /> API_Network</span>
-                  <span className="text-cyber-green">CONNECTED</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="opacity-60 flex items-center gap-2"><Activity className="w-3 h-3" /> Latency</span>
-                  <span className="text-white">12ms</span>
-                </div>
-              </div>
-            </div>
-          </nav>
+          {/* Section 1: Navigation Tabs */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <NavTab id="topology" label="Architecture" icon={Workflow} active={activeTab} set={setActiveTab} />
+            <NavTab id="vitals" label="Logic & Skills" icon={Cpu} active={activeTab} set={setActiveTab} />
+            <NavTab id="projects" label="Inventory" icon={Box} active={activeTab} set={setActiveTab} />
+            <NavTab id="logs" label="Deployment Logs" icon={Activity} active={activeTab} set={setActiveTab} />
 
-          {/* Content Area */}
-          <div className="lg:col-span-3 min-h-[500px]">
+            <div className="mt-8 p-6 bg-cyber-violet/5 rounded-2xl border border-cyber-violet/10">
+               <h3 className="text-xs font-bold text-cyber-violet mb-4 tracking-widest uppercase">Active Agents</h3>
+               <div className="space-y-4">
+                  <AgentStatus name="MeetMemo_Agent" status="LISTENING" color="green" />
+                  <AgentStatus name="Archaea_Parser" status="IDLE" color="violet" />
+               </div>
+            </div>
+          </div>
+
+          {/* Section 2: Main Dynamic Content */}
+          <div className="lg:col-span-9">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="h-full"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="min-h-[600px]"
               >
-                
-                {/* Tab: Overview */}
-                {activeTab === "overview" && (
-                  <div className="space-y-8 h-full">
-                    <section className="glass-panel p-8 rounded-3xl relative overflow-hidden h-full flex flex-col justify-center">
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-600/5 rounded-full blur-[100px]" />
-                      <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight flex items-center gap-4">
-                        <ShieldCheck className="w-10 h-10 text-cyber-violet" />
-                        Identity Profile
-                      </h2>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-4">
-                        <div className="space-y-4">
-                          <p className="text-lg opacity-80 leading-relaxed italic">
-                            "Architecting next-generation infrastructure, high-concurrency 
-                            backend APIs, and autonomous GenAI pipelines."
-                          </p>
-                          <div className="space-y-2 mt-8">
-                            <LabelVal label="Role" value={profile?.title} />
-                            <LabelVal label="XP" value={`${profile?.experience}+ Years`} />
-                            <LabelVal label="HQ" value={profile?.location} />
-                          </div>
+                {/* ARCHITECTURE VIEW */}
+                {activeTab === "topology" && (
+                  <div className="space-y-8">
+                     <div className="glass-panel p-8 rounded-3xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-5"><Brain className="w-32 h-32" /></div>
+                        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-white">
+                           <GitBranch className="w-6 h-6 text-cyber-green" /> Backend Ecosystem
+                        </h2>
+                        
+                        <div className="flex flex-col items-center gap-12 py-12">
+                           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 w-full max-w-2xl mx-auto">
+                              {data.topology.nodes.map((node: any) => (
+                                <div key={node.id} className="p-4 glass-panel rounded-xl border-white/5 text-center group hover:border-cyber-green/40 transition-all flex flex-col items-center gap-3">
+                                   <div className={`w-3 h-3 rounded-full ${node.status === 'Active' ? 'bg-cyber-green animate-pulse' : 'bg-cyber-violet'}`} />
+                                   <p className="text-[10px] font-bold uppercase tracking-wider group-hover:text-cyber-green">{node.label}</p>
+                                   <p className="text-[8px] opacity-40">{node.status}</p>
+                                </div>
+                              ))}
+                           </div>
+                           <p className="text-xs opacity-30 text-center italic max-w-md">The above diagram represents a live state retrieval of the distributed AI microservices orchestrating internal logic flows.</p>
                         </div>
-                        <div className="flex items-center justify-center p-8 bg-black/40 rounded-2xl border border-white/5">
-                           <div className="text-center">
-                             <p className="text-[60px] font-bold text-cyber-violet leading-none">3.5</p>
-                             <p className="text-xs tracking-[0.4em] opacity-40 uppercase">Years Experience</p>
+                     </div>
+                     
+                     <div className="p-8 border border-white/5 rounded-3xl bg-cyber-green/[0.02]">
+                        <h3 className="text-lg font-bold mb-4 text-cyber-green">Design Philosphy</h3>
+                        <p className="text-white/60 leading-relaxed text-sm">
+                           "My code isn't just a set of instructions; it's a scalable architecture designed for zero-latency data orchestration. 
+                           By leveraging asynchronous FastAPI workers and high-speed in-memory caches, I ensure that data flows seamlessly even under extreme concurrency."
+                        </p>
+                     </div>
+                  </div>
+                )}
+
+                {/* SKILLS VIEW */}
+                {activeTab === "vitals" && (
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {data.skillMatrix.map((cat: any, i: number) => (
+                        <div key={i} className="glass-panel p-8 rounded-3xl border-white/5 h-full">
+                           <h3 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4">{cat.category}</h3>
+                           <div className="flex flex-wrap gap-2">
+                              {cat.skills.map((s: string) => (
+                                <span key={s} className="px-3 py-1.5 bg-white/5 rounded-lg text-xs font-bold hover:bg-cyber-green hover:text-black transition-all cursor-crosshair">{s}</span>
+                              ))}
+                           </div>
+                           <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between text-[10px] opacity-40">
+                              <span>READY_STATE</span>
+                              <span className="text-cyber-green">100%</span>
                            </div>
                         </div>
+                      ))}
+                      <div className="glass-panel p-8 rounded-3xl border-cyber-violet/20 flex flex-col justify-center items-center gap-4">
+                         <Database className="w-12 h-12 text-cyber-violet" />
+                         <p className="font-bold text-center">Architectural Mastery</p>
+                         <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map(v => <div key={v} className="w-6 h-1 bg-cyber-violet rounded-full" />)}
+                         </div>
                       </div>
-                    </section>
-                  </div>
+                   </div>
                 )}
 
-                {/* Tab: Skills */}
-                {activeTab === "skills" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {profile?.skills?.map((skill: string, i: number) => (
-                      <motion.div
-                        key={skill}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="glass-panel p-6 rounded-2xl border-white/5 group hover:border-cyber-green/40 transition-colors"
-                      >
-                         <div className="flex justify-between items-center mb-4">
-                            <span className="text-lg font-bold group-hover:text-cyber-green transition-colors">{skill}</span>
-                            <span className="text-xs opacity-40 uppercase group-hover:opacity-100">Mastery 95%</span>
-                         </div>
-                         <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                            <motion.div 
-                              initial={{ width: 0 }}
-                              animate={{ width: "95%" }}
-                              transition={{ duration: 1, delay: i * 0.1 }}
-                              className="h-full bg-gradient-to-r from-cyber-green to-cyber-violet"
-                            />
-                         </div>
-                         <div className="mt-4 flex gap-2">
-                           <span className="text-[10px] bg-white/5 px-2 py-1 rounded opacity-50">#core</span>
-                           <span className="text-[10px] bg-white/5 px-2 py-1 rounded opacity-50">#production</span>
-                         </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Tab: Projects */}
+                {/* PROJECTS VIEW */}
                 {activeTab === "projects" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {profile?.projects?.map((project: string, i: number) => (
-                      <motion.div
-                        key={project}
-                        whileHover={{ scale: 1.02 }}
-                        className="glass-panel p-8 rounded-3xl border-white/5 space-y-6 flex flex-col"
-                      >
-                        <div className="flex justify-between items-start">
-                          <div className="p-3 bg-cyber-violet/10 rounded-xl">
-                            <Briefcase className="w-6 h-6 text-cyber-violet" />
+                  <div className="grid grid-cols-1 gap-6">
+                     {data.inventory.map((item: any, i: number) => (
+                       <div key={i} className="glass-panel p-8 rounded-3xl border-white/5 group hover:border-cyber-green/40 transition-all flex flex-col md:flex-row gap-8 items-start">
+                          <div className="w-full md:w-1/3 space-y-4">
+                             <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold bg-cyber-green text-black px-2 py-0.5 rounded uppercase">{item.rarity}</span>
+                             </div>
+                             <h3 className="text-3xl font-bold text-white group-hover:text-cyber-green">{item.name}</h3>
+                             <p className="text-xs opacity-50 uppercase tracking-widest underline underline-offset-4">{item.type}</p>
                           </div>
-                          <span className="text-[10px] px-3 py-1 bg-cyber-violet/20 rounded-full text-cyber-violet font-bold uppercase tracking-wider">
-                            Rarity: Epic
-                          </span>
-                        </div>
-                        <h3 className="text-2xl font-bold">{project}</h3>
-                        <p className="text-sm opacity-60 flex-1">
-                          Automated intelligence system focusing on advanced {project?.toLowerCase()} integration and scale.
-                        </p>
-                        <button className="flex items-center gap-2 text-xs font-bold text-cyber-green hover:underline">
-                          VIEW PROJECT ARCHIVE <ExternalLink className="w-3 h-3" />
-                        </button>
-                      </motion.div>
-                    ))}
+                          <div className="flex-1 space-y-6">
+                             <p className="text-sm text-white/70 leading-relaxed font-sans">{item.description}</p>
+                             <div className="flex flex-wrap gap-2 pt-4">
+                                {item.stack.map((s: string) => (
+                                  <span key={s} className="text-[10px] text-cyber-violet font-bold border border-cyber-violet/20 px-2 py-1 rounded">{s}</span>
+                                ))}
+                             </div>
+                          </div>
+                          <div className="self-center">
+                             <ChevronRight className="w-8 h-8 opacity-20 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
+                          </div>
+                       </div>
+                     ))}
                   </div>
                 )}
 
-                {/* Tab: Status */}
-                {activeTab === "status" && (
-                  <div className="glass-panel p-8 rounded-3xl border-white/5 h-full space-y-8">
-                     <div className="flex items-center gap-4 mb-8">
-                        <Activity className="w-8 h-8 text-cyber-pink" />
-                        <h2 className="text-3xl font-bold">Network & Services</h2>
-                     </div>
-                     <div className="space-y-6 overflow-y-auto max-h-[400px] font-mono text-sm leading-relaxed p-4 bg-black/50 rounded-xl border border-white/5">
-                        <LogLine text="Connecting to Central API..." status="WAIT" />
-                        <LogLine text={`Handshake established with ${health?.status || "Server"}...`} status="OK" />
-                        <LogLine text="Injecting Contextual RAG Buffers..." status="OK" />
-                        <LogLine text="Syncing Local Profile State..." status="OK" />
-                        <LogLine text={`Message: ${health?.message || "Running normal"}`} status="STBL" />
-                        <LogLine text="Monitor active. Waiting for input." status="REDA" />
-                        <motion.div 
-                          animate={{ opacity: [1, 0, 1] }}
-                          transition={{ repeat: Infinity, duration: 1 }}
-                          className="w-2 h-4 bg-cyber-green inline-block ml-1"
-                        />
-                     </div>
-                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                        <StatusCard label="CPU" val="14%" />
-                        <StatusCard label="RAM" val="2.4GB" />
-                        <StatusCard label="Uptime" val="99.9%" />
-                        <StatusCard label="Threads" val="Async" />
-                     </div>
+                {/* LOGS VIEW */}
+                {activeTab === "logs" && (
+                  <div className="space-y-6">
+                     {data.questLog.map((quest: any, i: number) => (
+                       <div key={i} className="flex gap-6">
+                          <div className="flex flex-col items-center">
+                             <div className="w-4 h-4 rounded-full bg-cyber-green border-4 border-black box-content" />
+                             <div className="w-px flex-1 bg-white/10" />
+                          </div>
+                          <div className="flex-1 pb-12">
+                             <p className="text-[10px] text-cyber-green font-bold mb-1 tracking-[0.3em]">{quest.period}</p>
+                             <h3 className="text-2xl font-bold text-white mb-2">{quest.role} @ {quest.company}</h3>
+                             <ul className="space-y-3 mt-4">
+                                {quest.achievements.map((a: string, j: number) => (
+                                  <li key={j} className="flex items-start gap-3 text-sm text-white/60 leading-relaxed">
+                                     <Sparkles className="w-4 h-4 text-cyber-violet flex-shrink-0 mt-0.5" /> {a}
+                                  </li>
+                                ))}
+                             </ul>
+                          </div>
+                       </div>
+                     ))}
                   </div>
                 )}
-
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
       </div>
 
-      {/* Footer Decoration */}
-      <footer className="mt-20 border-t border-white/5 pt-8 text-center opacity-30 text-[10px] tracking-[0.5em] uppercase">
-        End-to-End Encryption Enabled | Powered by Antigravity v4.0
+      <footer className="mt-20 border-t border-white/5 pt-8 text-center flex flex-col items-center gap-4">
+         <p className="text-[10px] opacity-20 tracking-[0.8em] uppercase">Deep Logic Orchestration</p>
+         <div className="flex gap-6 opacity-30">
+            <Zap className="w-4 h-4" />
+            <Box className="w-4 h-4" />
+            <Workflow className="w-4 h-4" />
+         </div>
       </footer>
     </main>
   );
 }
 
-function LabelVal({ label, value }: { label: string, value: string }) {
+function NavTab({ id, label, icon: Icon, active, set }: any) {
+  const isActive = active === id;
   return (
-    <div className="flex gap-4 items-center">
-      <span className="text-xs uppercase tracking-widest opacity-40 w-16">{label}:</span>
-      <span className="text-white font-bold">{value}</span>
-    </div>
+    <button
+      onClick={() => set(id)}
+      className={`flex items-center gap-4 px-6 py-4 rounded-2xl border transition-all text-left group ${
+        isActive 
+        ? "bg-cyber-green text-black border-transparent shadow-[0_0_20px_rgba(0,255,157,0.3)]" 
+        : "glass-panel border-white/5 hover:border-cyber-green/40"
+      }`}
+    >
+      <Icon className={`w-5 h-5 ${isActive ? "" : "opacity-40 group-hover:opacity-100"}`} />
+      <span className={`text-sm tracking-widest font-bold uppercase ${isActive ? "" : "opacity-60 group-hover:opacity-100"}`}>
+        {label}
+      </span>
+      {isActive && <ChevronRight className="ml-auto w-4 h-4" />}
+    </button>
   );
 }
 
-function LogLine({ text, status }: { text: string, status: string }) {
-  const colors: Record<string, string> = {
-    "OK": "text-cyber-green",
-    "WAIT": "text-cyber-violet",
-    "STBL": "text-cyber-green",
-    "REDA": "text-cyber-pink"
-  };
+function AgentStatus({ name, status, color }: any) {
+  const colorClass = color === "green" ? "text-cyber-green" : "text-cyber-violet";
+  const bgClass = color === "green" ? "bg-cyber-green" : "bg-cyber-violet";
   return (
-    <div className="flex gap-4">
-      <span className={`font-bold ${colors[status] || "text-white"}`}>[{status}]</span>
-      <span className="opacity-80">{text}</span>
-    </div>
-  );
-}
-
-function StatusCard({ label, val }: { label: string, val: string }) {
-  return (
-    <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-center">
-      <p className="text-[10px] opacity-40 uppercase mb-1">{label}</p>
-      <p className="text-lg font-bold text-white">{val}</p>
+    <div className="flex items-center justify-between">
+       <span className="text-[10px] opacity-60 flex items-center gap-2"><Zap className={`w-2 h-2 ${colorClass}`} /> {name}</span>
+       <div className="flex items-center gap-2">
+          <span className={`text-[8px] font-bold ${colorClass}`}>{status}</span>
+          <div className={`w-1 h-1 rounded-full ${bgClass} animate-pulse`} />
+       </div>
     </div>
   );
 }
