@@ -49,8 +49,8 @@ export default function Cursor() {
       {/* Core Dot */}
       <motion.div
         style={{
-          translateX: cursorX,
-          translateY: cursorY,
+          translateX: ringX,
+          translateY: ringY,
           left: -2,
           top: -2,
         }}
